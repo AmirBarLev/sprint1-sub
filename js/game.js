@@ -1,21 +1,20 @@
 'use strict'
 
+//– A Matrix
+// containing cell objects:
+// Each cell: 
 /////
-const gBoard = {
-    //– A Matrix
-    // containing cell objects:
-    // Each cell: 
-    minesAroundCount: 4,
-    isShown: false,
-    isMine: false,
-    isMarked: true
-}
+// minesAroundCount: 4,
+// isShown: false,
+// isMine: false,
+// isMarked: true
 // This is an object by which the
 // board size is set
 const gLevel = {
     SIZE: 4,
     MINES: 2
 }
+
 
 // This is an object in which you
 // can keep and update the
@@ -28,6 +27,7 @@ const gLevel = {
 // are marked (with a flag)
 // secsPassed: How many seconds
 // passed 
+
 // const gGame = {
 //     isOn: false,
 //     shownCount: 0,
@@ -38,25 +38,26 @@ const gLevel = {
 // const mat = []
 
 var gSize = 4
+var gBoard
+var negsCount = 0
+
+const FLAG = ''
+const MINE = ''
+const CELL = '⬛'
 
 
-/////
-const gGame = {
-    isOn: false,
-    shownCount: 0,
-    markedCount: 0,
-    secsPassed: 0
-}
 
 
 function onInit() {
-    renderBoard(board)
-    // gBoard = buildBoard()
-    console.log('hey', gBoard)
+    gBoard = buildBoard()
+    renderBoard(gBoard)
+    countNegs()
+    console.log('count', negsCount)
+    // console.log('hey', gBoard)
 
 }
 
-renderBoard()
+
 // function renderBoard(board, selector) {
 
 //     var strHTML = '<table> border="0"<tbody>'
@@ -78,65 +79,94 @@ renderBoard()
 //     elContainer.innerHTML = strHTML
 // }
 
-var board = [1,2,3,4,5]
 
 function renderBoard(board) {
+
     var strHTML = ''
     for (var i = 0; i < board.length; i++) {
+        var row = board[i]
         strHTML += '<tr>'
-        for (var j = 0; j < board[0].length; j++) {
-            var currCell = board[i][j]
-            var cellClass = (board[i][j]) ? 'taken' : ''
-            var cellData = 'data-i="' + i + '" data-j="' + j + '"'
-            strHTML += `
-    <td class="cell ${cellClass}" ${cellData} onclick="onCellClick(${i}, ${j})">
-    ${currCell}
-    </td>
-    `
+        for (var j = 0; j < row.length; j++) {
+            var cell = row[j]
+            // figure class name
+            var className = CELL
+            var tdId = `cell-${i}-${j}`
+            strHTML += `<td id="${tdId}" 
+                            onclick="cellClicked(this)" 
+                            class="${className}">${CELL}</td>`
         }
         strHTML += '</tr>'
     }
-    var elBoard = document.querySelector('.board')
-    elBoard.innerHTML = strHTML
-
+    var elMat = document.querySelector('.board')
+    elMat.innerHTML = strHTML
 }
 
-
-
-function createBoard() {
+function buildBoard() {
     var board = []
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < gSize; i++) {
         board[i] = []
-        for (var j = 0; j < 3; j++) {
+        for (var j = 0; j < gSize; j++) {
+            board[i][j] = {
+                minesAroundCount: 0, // this might be where i need to put the negsaourndfuntion
+                minesAroundCount: countNegs(),
+                isShown: false,
+                isMine: false,
+                isMarked: true,
+            }
         }
     }
+    board[1][2].isMine = true
+    board[2][3].isMine = true
+    console.table(board)
     return board
-
 }
 
+// function createBoard() {
+//     var board = []
+//     for (var i = 0; i < 3; i++) {
+//         board[i] = []
+//         for (var j = 0; j < 3; j++) {
+//         }
+//     }
+//     return board
+
+// }
 
 
 
-function createMat(ROWS, COLS) {
-    const mat = []
-    for (var i = 0; i < ROWS; i++) {
-        const row = []
-        for (var j = 0; j < COLS; j++) {
-            row.push('')
-        }
-        mat.push(row)
-    }
-    return mat
-}
+
+// function createMat(ROWS, COLS) {
+//     const mat = []
+//     for (var i = 0; i < ROWS; i++) {
+//         const row = []
+//         for (var j = 0; j < COLS; j++) {
+//             row.push('')
+//         }
+//         mat.push(row)
+//     }
+//     return mat
+// }
 
 
 function setMinesNegsCount(board) {
-
-
-
+    
 }
 
+function countNegs(rowIdx, colIdx, MINE) {
+    // var negsCount = 0
 
+    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
+        if (i < 0 || i >= mat.length) continue
+
+        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
+            if (j < 0 || j >= mat[i].length) continue
+            if (i === rowIdx && j === colIdx) continue
+            if (mat[i][j] === MINE) negsCount++
+        }
+    }
+    console.log('negsCount', negsCount)
+    return negsCount
+}
 
 
 function onCellClicked(elCell, i, j) {
