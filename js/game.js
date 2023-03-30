@@ -10,10 +10,6 @@
 // isMarked: true
 // This is an object by which the
 // board size is set
-const gLevel = {
-    SIZE: 4,
-    MINES: 2
-}
 
 
 // This is an object in which you
@@ -37,12 +33,16 @@ const gLevel = {
 
 // const mat = []
 
+const gLevel = {
+    SIZE: 4,
+    MINES: 2
+}
 var gSize = 4
 var gBoard
-var negsCount = 0
+// var minesAroundCount = 0
 
 const FLAG = ''
-const MINE = ''
+const MINE = '💣'
 const CELL = '⬛'
 
 
@@ -51,33 +51,14 @@ const CELL = '⬛'
 function onInit() {
     gBoard = buildBoard()
     renderBoard(gBoard)
-    countNegs()
-    console.log('count', negsCount)
+    // countNegs()
+    console.log('count',)
     // console.log('hey', gBoard)
 
 }
 
 
-// function renderBoard(board, selector) {
 
-//     var strHTML = '<table> border="0"<tbody>'
-//     for (var i = 0; i < mat.length; i++) {
-
-//         strHTML += '<tr>'
-//         for (var j = 0; j < mat[0].length; j++) {
-
-//             const cell = mat[i][j]
-//             const className = `cell cell-${i}-${j}`
-
-//             strHTML += `<td class="${className}">${cell}</td>`
-//         }
-//         strHTML += '</tr>'
-//     }
-//     strHTML += '</tbody></table>'
-
-//     const elContainer = document.querySelector(selector)
-//     elContainer.innerHTML = strHTML
-// }
 
 
 function renderBoard(board) {
@@ -92,34 +73,47 @@ function renderBoard(board) {
             var className = CELL
             var tdId = `cell-${i}-${j}`
             strHTML += `<td id="${tdId}" 
-                            onclick="cellClicked(this)" 
+                            onclick="onCellClicked(countNegs())" 
                             class="${className}">${CELL}</td>`
         }
         strHTML += '</tr>'
+
     }
+
     var elMat = document.querySelector('.board')
     elMat.innerHTML = strHTML
 }
+
 
 function buildBoard() {
     var board = []
     for (var i = 0; i < gSize; i++) {
         board[i] = []
         for (var j = 0; j < gSize; j++) {
+            // if ((board[i][j]).isMine ===true )board[i][j].minesAroundCount++ 
             board[i][j] = {
-                minesAroundCount: 0, // this might be where i need to put the negsaourndfuntion
-                minesAroundCount: countNegs(),
+                minesAroundCount: 0, // this might be where i need to put the negsaourndfunction
+                // minesAroundCount: countNegs(),
                 isShown: false,
                 isMine: false,
                 isMarked: true,
             }
+
         }
     }
+    // if (board[i][j].isMine === true) minesAroundCount++
+    
     board[1][2].isMine = true
     board[2][3].isMine = true
     console.table(board)
+    // debugger
+    // if (board[i][j].isMine === true) {
+    // return minesAroundCount++
+    // if ((board[i][j]).isMine === true) console.log('hellya', )
+    // if (board[i][j].isMine === true)
     return board
 }
+
 
 // function createBoard() {
 //     var board = []
@@ -135,37 +129,31 @@ function buildBoard() {
 
 
 
-// function createMat(ROWS, COLS) {
-//     const mat = []
-//     for (var i = 0; i < ROWS; i++) {
-//         const row = []
-//         for (var j = 0; j < COLS; j++) {
-//             row.push('')
-//         }
-//         mat.push(row)
-//     }
-//     return mat
-// }
-
-
 function setMinesNegsCount(board) {
-    
+
 }
 
-function countNegs(rowIdx, colIdx, MINE) {
-    // var negsCount = 0
+
+function countNegs(board, rowIdx, colIdx) {
+    var minesAroundCount = 0
 
     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-        if (i < 0 || i >= mat.length) continue
+        if (i < 0 || i >= board.length) continue
 
         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
-            if (j < 0 || j >= mat[i].length) continue
+            if (j < 0 || j >= board[i].length) continue
             if (i === rowIdx && j === colIdx) continue
-            if (mat[i][j] === MINE) negsCount++
+            // if (board[i][j] === board[i][j].isMine === true) minesAroundCount++
+
+            // if ((board[i][j]).isMine === true) minesAroundCount++
+            if (board[i][j].isMine === true) {
+                continue;
+            }
         }
     }
-    console.log('negsCount', negsCount)
-    return negsCount
+    console.log('negsCount', minesAroundCount)
+
+    return minesAroundCount
 }
 
 

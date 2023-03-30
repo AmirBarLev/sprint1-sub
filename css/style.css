@@ -1,31 +1,38 @@
 * {
-    color: rgb(176, 127, 255);
+    color: rgb(93, 9, 227);
+    margin: auto;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .body {
     color: rgb(95, 3, 157);
 }
 
-h5 {
-    margin-left: 50px;
-    color: rgb(103, 8, 236);
-    text-align: center;
-    background-color: brown;
+/* h5 {
 
-}
+} */
 
-.board-container {
-    border: solid 5px coral
-}
 
-.cell {
-    border: 5px black;
-    width: 20px;
-    height: 20px;
-    background-color: rgb(132, 80, 12);
+
+table {
+    margin-top: auto;
+    top: 10px;
+    width: auto;
+    height: auto;
+    background-color: grey;
     /* text-align: center; */
 }
 
-.table-tr {
-    text-align: center;
+#cell {
+    display:none
+    
 }
+
+.⬛ {
+    cursor:pointer;
+    
+}
+
+
+
