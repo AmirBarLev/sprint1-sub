@@ -37,6 +37,7 @@ function getAmountOfNeighbours(BOARD, ROW, COL, ITEM) {
     var amount = 0
     for (var i = ROW - 1; i <= ROW + 1; i++) {
         if (i < 0 || i > BOARD.length - 1) continue
+        
         for (var j = COL - 1; j <= COL + 1; j++) {
             if (j < 0 || j > BOARD[i].length - 1 || (i === ROW && j === COL)) continue
             if (BOARD[i][j] === ITEM) amount++

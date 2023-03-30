@@ -1,5 +1,6 @@
 * {
-    color: rgb(93, 9, 227);
+    background-color: #d8cff5b6;
+    color: rgb(51, 7, 121);
     margin: auto;
     text-align: center;
     margin-top: 20px;
@@ -15,24 +16,22 @@
 
 
 
-table {
+/* table {
     margin-top: auto;
     top: 10px;
     width: auto;
     height: auto;
     background-color: grey;
     /* text-align: center; */
+
+.cell {
+    background-color: grey;
+    width:50px;
+    height:50px;
 }
 
-#cell {
-    display:none
-    
-}
 
-.⬛ {
-    cursor:pointer;
-    
-}
+
 
 
 

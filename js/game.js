@@ -4,7 +4,7 @@
 // containing cell objects:
 // Each cell: 
 /////
-// minesAroundCount: 4,
+// minesAroundCount: 0,
 // isShown: false,
 // isMine: false,
 // isMarked: true
@@ -24,12 +24,12 @@
 // secsPassed: How many seconds
 // passed 
 
-// const gGame = {
-//     isOn: false,
-//     shownCount: 0,
-//     markedCount: 0,
-//     secsPassed: 0
-// }
+const gGame = {
+    isOn: false,
+    shownCount: 0,
+    markedCount: 0,
+    secsPassed: 0
+}
 
 // const mat = []
 
@@ -41,17 +41,18 @@ var gSize = 4
 var gBoard
 // var minesAroundCount = 0
 
-const FLAG = ''
+const FLAG = '🚩'
 const MINE = '💣'
-const CELL = '⬛'
+
 
 
 
 
 function onInit() {
     gBoard = buildBoard()
+    setMinesNegsCount(gBoard)
     renderBoard(gBoard)
-    // countNegs()
+
     console.log('count',)
     // console.log('hey', gBoard)
 
@@ -70,11 +71,10 @@ function renderBoard(board) {
         for (var j = 0; j < row.length; j++) {
             var cell = row[j]
             // figure class name
-            var className = CELL
             var tdId = `cell-${i}-${j}`
-            strHTML += `<td id="${tdId}" 
-                            onclick="onCellClicked(countNegs())" 
-                            class="${className}">${CELL}</td>`
+            strHTML += `<td class="cell" 
+                            onclick="onCellClicked(gBoard)" 
+                            ></td>`
         }
         strHTML += '</tr>'
 
@@ -92,8 +92,7 @@ function buildBoard() {
         for (var j = 0; j < gSize; j++) {
             // if ((board[i][j]).isMine ===true )board[i][j].minesAroundCount++ 
             board[i][j] = {
-                minesAroundCount: 0, // this might be where i need to put the negsaourndfunction
-                // minesAroundCount: countNegs(),
+                minesAroundCount: 0,
                 isShown: false,
                 isMine: false,
                 isMarked: true,
@@ -102,9 +101,10 @@ function buildBoard() {
         }
     }
     // if (board[i][j].isMine === true) minesAroundCount++
-    
+
     board[1][2].isMine = true
-    board[2][3].isMine = true
+    board[2][3].isMine = true && MINE
+    
     console.table(board)
     // debugger
     // if (board[i][j].isMine === true) {
@@ -115,50 +115,65 @@ function buildBoard() {
 }
 
 
-// function createBoard() {
-//     var board = []
-//     for (var i = 0; i < 3; i++) {
-//         board[i] = []
-//         for (var j = 0; j < 3; j++) {
-//         }
-//     }
-//     return board
-
-// }
-
 
 
 
 function setMinesNegsCount(board) {
 
+    for (var i = 0; i < board.length; i++) {
+
+        for (var j = 0; j < board.length; j++) {
+            var cell = board[i][j]
+            // console.log('cell', cell)
+            var count = getAmountOfNeighbours(board, i, j)
+            cell.minesAroundCount = count
+
+
+        }
+
+    }
+    console.log('gBoard', gBoard)
+
 }
 
-
-function countNegs(board, rowIdx, colIdx) {
-    var minesAroundCount = 0
-
+function getAmountOfNeighbours(board, rowIdx, colIdx, MINE) {
+    var amount = 0
     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-        if (i < 0 || i >= board.length) continue
-
+        if (i < 0 || i > board.length - 1) continue
         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
-            if (j < 0 || j >= board[i].length) continue
-            if (i === rowIdx && j === colIdx) continue
-            // if (board[i][j] === board[i][j].isMine === true) minesAroundCount++
-
-            // if ((board[i][j]).isMine === true) minesAroundCount++
-            if (board[i][j].isMine === true) {
-                continue;
-            }
+            if (j < 0 || j > board[i].length - 1 || (i === rowIdx && j === colIdx)) continue
+            if (board[i][j].isMine === true) amount++
         }
     }
-    console.log('negsCount', minesAroundCount)
-
-    return minesAroundCount
+    return amount
 }
+
+
+// function countNegs(board, rowIdx, colIdx) {
+//     var minesAroundCount = 0
+
+//     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
+//         if (i < 0 || i >= board.length) continue
+
+//         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
+//             if (j < 0 || j >= board[i].length) continue
+//             if (i === rowIdx && j === colIdx) continue
+//             // if (board[i][j] === board[i][j].isMine === true) minesAroundCount++
+
+//             // if ((board[i][j]).isMine === true) minesAroundCount++
+//             if (board[i][j].isMine === true) {
+//                 continue;
+//             }
+//         }
+//     }
+//     console.log('negsCount', minesAroundCount)
+
+//     return minesAroundCount
+// }
 
 
 function onCellClicked(elCell, i, j) {
-
+    
 
 
 }
@@ -182,4 +197,13 @@ function expandShown(board, elCell, i, j) {
 
 
 
+}
+
+// to add random mines
+function addRandMine(board) {
+    for (let i = 0; i < gSize.length; i++) {
+        board[getRandomIntInclusive(0, gSize)][getRandomIntInclusive(0, gSize)] = MINE
+
+
+    }
 }
