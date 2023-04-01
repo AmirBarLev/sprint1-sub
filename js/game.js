@@ -72,18 +72,24 @@ function renderBoard(board) {
             var cell = row[j]
             // figure class name
             var tdId = `cell-${i}-${j}`
-            strHTML += `<td class="cell" 
-                            onclick="onCellClicked(gBoard)" 
+            strHTML += `<td class="cell hidden" 
+                            onclick="onCellClicked(this)" 
                             ></td>`
         }
         strHTML += '</tr>'
-
+        if (cell.minesAroundCount !== 0 && cell.isMine === false) {
+            cell = cell.minesAroundCount
+            cell.innerText
+        }
+        // if (minesAroundCount < 0 && gBoard.isMine === false) 
+        // console.log('yes')
     }
 
     var elMat = document.querySelector('.board')
     elMat.innerHTML = strHTML
-}
 
+
+}
 
 function buildBoard() {
     var board = []
@@ -132,6 +138,7 @@ function setMinesNegsCount(board) {
 
     }
     console.log('gBoard', gBoard)
+    return cell.minesAroundCount
 
 }
 
@@ -172,9 +179,11 @@ function getAmountOfNeighbours(board, rowIdx, colIdx, MINE) {
 
 
 function onCellClicked(elCell, i, j) {
-    elCell = document.getElementById('.cell')
+    elCell.classList.toggle('hidden');
+    // console.log('elCell', elCell)
+
+    // elCell = document.getElementById('.cell') ,console.log('hidden',)
     // if (elCell[i][j] === MINE) console.log('gameover');
-    
     // if (elCell === gBoard.isMine === true) console.log('gameover');
 }
 
@@ -206,4 +215,4 @@ function addRandMine(board) {
 
 
     }
-}
+}//

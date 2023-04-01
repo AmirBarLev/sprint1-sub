@@ -1,8 +1,4 @@
-@font-face {
-    font-family: "MemphisRiver";
-    src: url(fonts/MemphisRiver.ttf) format('truetype');
-    src: url(fonts/MemphisRiver.woff) format('woff');
-}
+
 
 * {
     background-color: gray;
@@ -32,9 +28,10 @@ h5 {
 table {
     margin-top: auto;
     border: 10px solid darkgray;
+    border-radius: 12px;
     width: auto;
     height: auto;
-    background-color: grey;
+    background-color: rgb(60, 36, 36);
     text-align: center;
     align-items: center;
 }
@@ -54,4 +51,8 @@ footer {
     font-size: 25px;
     font-family: "MemphisRiver", helvetica; 
     color: rgba(0, 0, 0, 0.596);
+}
+
+.cell.hidden {
+    background-color:rgba(211, 211, 211, 0.598);
 }
