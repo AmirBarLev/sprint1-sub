@@ -1,13 +1,26 @@
+@font-face {
+    font-family: "MemphisRiver";
+    src: url(fonts/MemphisRiver.ttf) format('truetype');
+    src: url(fonts/MemphisRiver.woff) format('woff');
+}
+
 * {
-    background-color: #d8cff5b6;
-    color: rgb(51, 7, 121);
+    background-color: gray;
+    color: rgb(0, 0, 0);
     margin: auto;
     text-align: center;
     margin-top: 20px;
 }
 
+h5 {
+    margin-top: auto;
+    font-size: 3em;
+    margin-bottom: 2em;
+}
+
+
 .body {
-    color: rgb(95, 3, 157);
+    color: gray
 }
 
 /* h5 {
@@ -16,22 +29,29 @@
 
 
 
-/* table {
+table {
     margin-top: auto;
-    top: 10px;
+    border: 10px solid darkgray;
     width: auto;
     height: auto;
     background-color: grey;
-    /* text-align: center; */
+    text-align: center;
+    align-items: center;
+}
 
 .cell {
-    background-color: grey;
-    width:50px;
-    height:50px;
+    background-color: lightgray;
+    width: 50px;
+    height: 50px;
+    border: 2px solid whitesmoke
 }
 
 
 
-
-
-
+footer {
+    margin-top: 270px ;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: "MemphisRiver", helvetica; 
+    color: rgba(0, 0, 0, 0.596);
+}

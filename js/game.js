@@ -90,7 +90,6 @@ function buildBoard() {
     for (var i = 0; i < gSize; i++) {
         board[i] = []
         for (var j = 0; j < gSize; j++) {
-            // if ((board[i][j]).isMine ===true )board[i][j].minesAroundCount++ 
             board[i][j] = {
                 minesAroundCount: 0,
                 isShown: false,
@@ -104,7 +103,7 @@ function buildBoard() {
 
     board[1][2].isMine = true
     board[2][3].isMine = true && MINE
-    
+
     console.table(board)
     // debugger
     // if (board[i][j].isMine === true) {
@@ -173,9 +172,10 @@ function getAmountOfNeighbours(board, rowIdx, colIdx, MINE) {
 
 
 function onCellClicked(elCell, i, j) {
+    elCell = document.getElementById('.cell')
+    // if (elCell[i][j] === MINE) console.log('gameover');
     
-
-
+    // if (elCell === gBoard.isMine === true) console.log('gameover');
 }
 
 
